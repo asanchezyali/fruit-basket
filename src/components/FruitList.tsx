@@ -8,7 +8,7 @@ interface FruitListProps {
 
 function FruitList({ fruits, onUpdate, onDelete }: FruitListProps) {
   return (
-    <ul>
+    <ul className="space-y-2">
       {fruits.map((fruit) => (
         <FruitItem key={fruit} name={fruit} onUpdate={onUpdate} onDelete={onDelete} />
       ))}
