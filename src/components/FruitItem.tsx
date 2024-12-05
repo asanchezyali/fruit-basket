@@ -26,7 +26,8 @@ function FruitItem({ name, onUpdate, onDelete }: FruitItemProps) {
       await onUpdate(name, newName);
       setIsEditing(false);
     } catch (err) {
-      setError((err as Error).message);
+      console.error(err);
+      setError("Error updating fruit");
     } finally {
       setIsUpdating(false);
     }
@@ -39,7 +40,8 @@ function FruitItem({ name, onUpdate, onDelete }: FruitItemProps) {
     try {
       await onDelete(name);
     } catch (err) {
-      setError((err as Error).message);
+      console.error(err);
+      setError("Error deleting fruit");
     } finally {
       setIsDeleting(false);
     }
