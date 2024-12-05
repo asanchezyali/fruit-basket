@@ -1,7 +1,6 @@
 # Fruit Basket
 
-![image](https://github.com/user-attachments/assets/5705896a-6ea8-42da-b49e-a0ee878d6f14)
-
+https://github.com/user-attachments/assets/530bfc26-28d0-4a44-aa7d-ffe5d2c6a126
 
 This project is a simple React application that allows users to manage a list of fruits. It includes features to add, update, and delete fruits, as well as display a list of fruits fetched from an API.
 
