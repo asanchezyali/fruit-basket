@@ -18,24 +18,24 @@ BASKET.API = (function () {
       return sortStringArrays([...fruits]);
     },
 
-    async update(oldFruitName, newFruitName) {
+    async update(oldName, newName) {
       await delay(2000);
-      const index = fruits.findIndex((fruit) => fruit.toLowerCase() === oldFruitName.toLowerCase());
+      const index = fruits.findIndex((fruit) => fruit.toLowerCase() === oldName.toLowerCase());
       if (index === -1) {
-        throw new Error(`"${oldFruitName}" not found`);
+        throw new Error(`"${oldName}" not found`);
       }
-      if (fruits.some((fruit) => fruit.toLowerCase() === newFruitName.toLowerCase() && fruit !== oldFruitName)) {
-        throw new Error(`"${newFruitName}" already in use`);
+      if (fruits.some((fruit) => fruit.toLowerCase() === newName.toLowerCase() && fruit !== oldName)) {
+        throw new Error(`"${newName}" already in use`);
       }
-      fruits[index] = newFruitName;
+      fruits[index] = newName;
       return sortStringArrays([...fruits]);
     },
 
-    async delete(fruitName) {
+    async delete(name) {
       await delay(2000);
-      const index = fruits.findIndex((fruit) => fruit.toLowerCase() === fruitName.toLowerCase());
+      const index = fruits.findIndex((fruit) => fruit.toLowerCase() === name.toLowerCase());
       if (index === -1) {
-        throw new Error(`"${fruitName}" not found`);
+        throw new Error(`"${name}" not found`);
       }
       fruits.splice(index, 1);
       return sortStringArrays([...fruits]);

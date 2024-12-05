@@ -1,14 +1,16 @@
-import React from "react";
+import FruitItem from "./FruitItem";
 
 interface FruitListProps {
   fruits: string[];
+  onUpdate: (oldName: string, newName: string) => Promise<void>;
+  onDelete: (name: string) => Promise<void>;
 }
 
-function FruitList({ fruits }: FruitListProps) {
+function FruitList({ fruits, onUpdate, onDelete }: FruitListProps) {
   return (
     <ul>
       {fruits.map((fruit) => (
-        <li key={fruit}>{fruit}</li>
+        <FruitItem key={fruit} name={fruit} onUpdate={onUpdate} onDelete={onDelete} />
       ))}
     </ul>
   );
