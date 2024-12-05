@@ -8,11 +8,11 @@ interface FruitListProps {
 
 function FruitList({ fruits, onUpdate, onDelete }: FruitListProps) {
   return (
-    <ul className="space-y-2">
+    <div className="grid gap-4 max-w-xl mx-auto">
       {fruits.map((fruit) => (
         <FruitItem key={fruit} name={fruit} onUpdate={onUpdate} onDelete={onDelete} />
       ))}
-    </ul>
+    </div>
   );
 }
 
