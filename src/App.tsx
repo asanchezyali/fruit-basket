@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import AddFruit from "./components/AddFruit";
 import FruitList from "./components/FruitList";
+import LoadingSpinner from "./components/LoadingSpinner";
 import "./index.css";
 
 declare global {
@@ -77,11 +78,15 @@ function App() {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Fruit Basket</h1>
-      <AddFruit onAdd={handleAddFruit} />
-      {error && <div className="text-red-500 mt-2">{error}</div>}
-      <FruitList fruits={fruits} onUpdate={handleUpdateFruit} onDelete={handleDeleteFruit} />
+    <div className="min-h-screen bg-background text-white p-4">
+      <div className="container mx-auto max-w-4xl">
+        <h1 className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+          Fruit Basket
+        </h1>
+        <AddFruit onAdd={handleAddFruit} />
+        {error && <div className="text-red-400 mt-4 p-4 bg-red-900/20 rounded-lg text-center">{error}</div>}
+        <FruitList fruits={fruits} onUpdate={handleUpdateFruit} onDelete={handleDeleteFruit} />
+      </div>
     </div>
   );
 }
