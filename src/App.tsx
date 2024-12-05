@@ -48,8 +48,29 @@ function App() {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
+  const handleUpdateFruit = async (oldName: string, newName: string) => {
+    try {
+      const updatedFruits = await window.BASKET.API.update(oldName, newName);
+      setFruits(updatedFruits);
+      setError(null);
+    } catch (err) {
+      console.error(err);
+      setError("Error updating fruit");
+    }
+  };
+
+  const handleDeleteFruit = async (name: string) => {
+    try {
+      const updatedFruits = await window.BASKET.API.delete(name);
+      setFruits(updatedFruits);
+      setError(null);
+    } catch (err) {
+      console.error(err);
+      setError("Error deleting fruit");
+    }
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -60,7 +81,7 @@ function App() {
       <h1 className="text-2xl font-bold mb-4">Fruit Basket</h1>
       <AddFruit onAdd={handleAddFruit} />
       {error && <div className="text-red-500 mt-2">{error}</div>}
-      <FruitList fruits={fruits} />
+      <FruitList fruits={fruits} onUpdate={handleUpdateFruit} onDelete={handleDeleteFruit} />
     </div>
   );
 }
