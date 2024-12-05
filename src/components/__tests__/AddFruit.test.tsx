@@ -43,4 +43,18 @@ describe("AddFruit", () => {
       expect(screen.getByText(error.message)).toBeInTheDocument();
     });
   });
+
+  it("handles duplicate fruit submission", async () => {
+    const error = new Error('"Mango" already in use');
+    onAdd.mockRejectedValueOnce(error);
+
+    render(<AddFruit onAdd={onAdd} />);
+
+    await userEvent.type(screen.getByPlaceholderText("Enter fruit name"), "Mango");
+    await userEvent.click(screen.getByRole("button", { name: /add/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText(error.message)).toBeInTheDocument();
+    });
+  });
 });

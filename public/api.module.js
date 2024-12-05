@@ -11,9 +11,12 @@ BASKET.API = (function () {
       await delay(2000);
       return sortStringArrays([...fruits]);
     },
-
+    
     async add(fruit) {
       await delay(2000);
+      if (fruits.some((existingFruit) => existingFruit.toLowerCase() === fruit.toLowerCase())) {
+        throw new Error(`"${fruit}" already in use`);
+      }
       fruits.push(fruit);
       return sortStringArrays([...fruits]);
     },
