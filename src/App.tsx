@@ -74,7 +74,7 @@ function App() {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner />;
   }
 
   return (
