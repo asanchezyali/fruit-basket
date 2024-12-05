@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AddFruit from "./components/AddFruit";
 import FruitList from "./components/FruitList";
 import "./index.css";
 
@@ -36,6 +37,20 @@ function App() {
     }
   };
 
+  const handleAddFruit = async (name: string) => {
+    try {
+      const updatedFruits = await window.BASKET.API.add(name);
+      setFruits(updatedFruits);
+      setError(null);
+    } catch (err) {
+      console.error(err);
+      setError("Error adding fruit");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -43,6 +58,7 @@ function App() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Fruit Basket</h1>
+      <AddFruit onAdd={handleAddFruit} />
       {error && <div className="text-red-500 mt-2">{error}</div>}
       <FruitList fruits={fruits} />
     </div>
