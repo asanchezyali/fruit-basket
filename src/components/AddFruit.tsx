@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Plus } from "lucide-react";
 
 interface AddFruitProps {
   onAdd: (name: string) => Promise<void>;
@@ -9,11 +10,9 @@ function AddFruit({ onAdd }: AddFruitProps) {
   const [isAdding, setIsAdding] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!name.trim()) {
-      return;
-    }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim()) return;
 
     setIsAdding(true);
     setError(null);
@@ -22,8 +21,7 @@ function AddFruit({ onAdd }: AddFruitProps) {
       await onAdd(name);
       setName("");
     } catch (err) {
-      console.error(err);
-      setError("Error adding fruit");
+      setError((err as Error).message);
     } finally {
       setIsAdding(false);
     }
@@ -42,14 +40,19 @@ function AddFruit({ onAdd }: AddFruitProps) {
         <button
           type="submit"
           disabled={isAdding}
-          className="px-6 py-2 bg-gradient-to-r from-primary to-secondary rounded-lg font-medium text-white hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-6 py-2 bg-gradient-to-r from-primary to-secondary rounded-lg font-medium text-white hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
         >
-          {isAdding ? 'Adding...' : 'Add'}
+          {isAdding ? (
+            "Adding..."
+          ) : (
+            <>
+              <Plus className="w-4 h-4 mr-2" />
+              Add
+            </>
+          )}
         </button>
       </div>
-      {error && (
-        <div className="text-red-400 mt-2 text-center text-sm">{error}</div>
-      )}
+      {error && <div className="text-red-400 mt-2 text-center text-sm">{error}</div>}
     </form>
   );
 }
