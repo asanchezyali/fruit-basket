@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import { Pencil, Trash2, X, Check } from "lucide-react";
 
 interface FruitItemProps {
@@ -8,11 +8,11 @@ interface FruitItemProps {
 }
 
 function FruitItem({ name, onUpdate, onDelete }: FruitItemProps) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [newName, setNewName] = useState(name);
-  const [isUpdating, setIsUpdating] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [newName, setNewName] =  React.useState(name);
+  const [isUpdating, setIsUpdating] = React.useState(false);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   const handleUpdate = async () => {
     if (newName === name) {

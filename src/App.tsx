@@ -1,26 +1,25 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AddFruit from "./components/AddFruit";
 import FruitList from "./components/FruitList";
 import LoadingSpinner from "./components/LoadingSpinner";
-import "./index.css";
 
 declare global {
   interface Window {
     BASKET: {
       API: {
         getAll: () => Promise<string[]>;
-        add: (fruitName: string) => Promise<string[]>;
-        update: (oldFruitName: string, newFruitName: string) => Promise<string[]>;
-        delete: (fruitName: string) => Promise<string[]>;
+        add: (name: string) => Promise<string[]>;
+        update: (oldName: string, newName: string) => Promise<string[]>;
+        delete: (name: string) => Promise<string[]>;
       };
     };
   }
 }
 
-function App() {
+const App: React.FC = () => {
   const [fruits, setFruits] = useState<string[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchFruits();
@@ -28,12 +27,11 @@ function App() {
 
   const fetchFruits = async () => {
     try {
-      const fruits = await window.BASKET.API.getAll();
-      setFruits(fruits);
+      const fetchedFruits = await window.BASKET.API.getAll();
+      setFruits(fetchedFruits);
       setLoading(false);
     } catch (err) {
-      console.error(err);
-      setError("Error fetching fruits");
+      setError("Failed to fetch fruits");
       setLoading(false);
     }
   };
@@ -44,10 +42,7 @@ function App() {
       setFruits(updatedFruits);
       setError(null);
     } catch (err) {
-      console.error(err);
-      setError("Error adding fruit");
-    } finally {
-      setLoading(false);
+      setError((err as Error).message);
     }
   };
 
@@ -57,8 +52,7 @@ function App() {
       setFruits(updatedFruits);
       setError(null);
     } catch (err) {
-      console.error(err);
-      setError("Error updating fruit");
+      setError((err as Error).message);
     }
   };
 
@@ -68,8 +62,7 @@ function App() {
       setFruits(updatedFruits);
       setError(null);
     } catch (err) {
-      console.error(err);
-      setError("Error deleting fruit");
+      setError((err as Error).message);
     }
   };
 
@@ -89,6 +82,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;

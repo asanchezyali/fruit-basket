@@ -1,3 +1,4 @@
+import React from "react";
 import FruitItem from "./FruitItem";
 
 interface FruitListProps {

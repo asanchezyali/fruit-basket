@@ -1,7 +1,17 @@
-import "@testing-library/jest-dom";
-import { vi } from "vitest";
+import '@testing-library/jest-dom';
+import { vi } from 'vitest';
+import { expect, afterEach } from 'vitest';
+import { cleanup } from '@testing-library/react';
+import matchers from '@testing-library/jest-dom/matchers';
 
-window.BASKET = {
+expect.extend(matchers);
+
+
+afterEach(() => {
+  cleanup();
+});
+
+(window).BASKET = {
   API: {
     getAll: vi.fn(),
     add: vi.fn(),
@@ -9,3 +19,4 @@ window.BASKET = {
     delete: vi.fn(),
   },
 };
+
