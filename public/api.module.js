@@ -1,7 +1,7 @@
 window.BASKET = window.BASKET || {};
 
 BASKET.API = (function () {
-  let fruits = ["Apple", "Banana", "Blueberry", "Cherry", "Kiwi", "Mango", "Orange", "Pear", "Pineapple", "Strawberry"];
+  let fruits = ["Apple", "Banana", "Blueberry", "Cherry", "Kiwi"];
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const sortStringArrays = (strings) => strings.sort((a, b) => a.localeCompare(b));
