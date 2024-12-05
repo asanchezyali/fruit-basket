@@ -30,18 +30,26 @@ function AddFruit({ onAdd }: AddFruitProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4">
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Enter fruit name"
-        className="border p-2 mr-2"
-      />
-      <button type="submit" disabled={isAdding} className="bg-blue-500 text-white p-2 rounded disabled:opacity-50">
-        {isAdding ? "Adding..." : "Add"}
-      </button>
-      {error && <div className="text-red-500 mt-2">{error}</div>}
+    <form onSubmit={handleSubmit} className="mb-8">
+      <div className="flex gap-4 max-w-xl mx-auto">
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter fruit name"
+          className="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors"
+        />
+        <button
+          type="submit"
+          disabled={isAdding}
+          className="px-6 py-2 bg-gradient-to-r from-primary to-secondary rounded-lg font-medium text-white hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isAdding ? 'Adding...' : 'Add'}
+        </button>
+      </div>
+      {error && (
+        <div className="text-red-400 mt-2 text-center text-sm">{error}</div>
+      )}
     </form>
   );
 }
