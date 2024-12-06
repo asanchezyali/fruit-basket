@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { Plus } from "lucide-react";
+import React, { useState } from 'react';
+import { Plus } from 'lucide-react';
+import { useFruit } from '../context/FruitContext';
 
-interface AddFruitProps {
-  onAdd: (name: string) => Promise<void>;
-}
-
-function AddFruit({ onAdd }: AddFruitProps) {
-  const [name, setName] = useState("");
+const AddFruit: React.FC = () => {
+  const [name, setName] = useState('');
+  const { addFruit } = useFruit();
   const [isAdding, setIsAdding] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,8 +16,8 @@ function AddFruit({ onAdd }: AddFruitProps) {
     setError(null);
 
     try {
-      await onAdd(name);
-      setName("");
+      await addFruit(name.trim());
+      setName('');
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -42,9 +40,7 @@ function AddFruit({ onAdd }: AddFruitProps) {
           disabled={isAdding}
           className="px-6 py-2 bg-gradient-to-r from-primary to-secondary rounded-lg font-medium text-white hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
         >
-          {isAdding ? (
-            "Adding..."
-          ) : (
+          {isAdding ? 'Adding...' : (
             <>
               <Plus className="w-4 h-4 mr-2" />
               Add
@@ -52,9 +48,12 @@ function AddFruit({ onAdd }: AddFruitProps) {
           )}
         </button>
       </div>
-      {error && <div className="text-red-400 mt-2 text-center text-sm">{error}</div>}
+      {error && (
+        <div className="text-red-400 mt-2 text-center text-sm" data-testid="error-message">{error}</div>
+      )}
     </form>
   );
-}
+};
 
 export default AddFruit;
+

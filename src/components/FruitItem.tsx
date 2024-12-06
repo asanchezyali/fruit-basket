@@ -1,18 +1,18 @@
-import React from "react";
-import { Pencil, Trash2, X, Check } from "lucide-react";
+import React, { useState } from 'react';
+import { Pencil, Trash2, X, Check } from 'lucide-react';
+import { useFruit } from '../context/FruitContext';
 
 interface FruitItemProps {
   name: string;
-  onUpdate: (oldName: string, newName: string) => Promise<void>;
-  onDelete: (name: string) => Promise<void>;
 }
 
-function FruitItem({ name, onUpdate, onDelete }: FruitItemProps) {
-  const [isEditing, setIsEditing] = React.useState(false);
-  const [newName, setNewName] =  React.useState(name);
-  const [isUpdating, setIsUpdating] = React.useState(false);
-  const [isDeleting, setIsDeleting] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
+const FruitItem: React.FC<FruitItemProps> = ({ name: initialName }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState(initialName);
+  const [newName, setNewName] = useState(initialName);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { updateFruit, deleteFruit } = useFruit();
 
   const handleUpdate = async () => {
     if (newName === name) {
@@ -21,14 +21,12 @@ function FruitItem({ name, onUpdate, onDelete }: FruitItemProps) {
     }
 
     setIsUpdating(true);
-    setError(null);
-
     try {
-      await onUpdate(name, newName);
+      await updateFruit(name, newName);
+      setName(newName);
       setIsEditing(false);
-    } catch (err) {
-      console.error(err);
-      setError("Error updating fruit");
+    } catch (error) {
+      console.error('Failed to update fruit:', error);
     } finally {
       setIsUpdating(false);
     }
@@ -36,14 +34,10 @@ function FruitItem({ name, onUpdate, onDelete }: FruitItemProps) {
 
   const handleDelete = async () => {
     setIsDeleting(true);
-    setError(null);
-
     try {
-      await onDelete(name);
-    } catch (err) {
-      console.error(err);
-      setError("Error deleting fruit");
-    } finally {
+      await deleteFruit(name);
+    } catch (error) {
+      console.error('Failed to delete fruit:', error);
       setIsDeleting(false);
     }
   };
@@ -74,7 +68,6 @@ function FruitItem({ name, onUpdate, onDelete }: FruitItemProps) {
             <X className="w-4 h-4" />
           </button>
         </div>
-        {error && <div className="text-red-400 mt-2 text-sm">{error}</div>}
       </div>
     );
   }
@@ -99,9 +92,9 @@ function FruitItem({ name, onUpdate, onDelete }: FruitItemProps) {
           <Trash2 className="w-4 h-4" />
         </button>
       </div>
-      {error && <div className="text-red-400 mt-2 text-sm">{error}</div>}
     </div>
   );
-}
+};
 
 export default FruitItem;
+

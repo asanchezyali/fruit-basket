@@ -1,20 +1,18 @@
-import React from "react";
-import FruitItem from "./FruitItem";
+import React from 'react';
+import FruitItem from './FruitItem';
+import { useFruit } from '../context/FruitContext';
 
-interface FruitListProps {
-  fruits: string[];
-  onUpdate: (oldName: string, newName: string) => Promise<void>;
-  onDelete: (name: string) => Promise<void>;
-}
+const FruitList: React.FC = () => {
+  const { fruits } = useFruit();
 
-function FruitList({ fruits, onUpdate, onDelete }: FruitListProps) {
   return (
     <div className="grid gap-4 max-w-xl mx-auto">
       {fruits.map((fruit) => (
-        <FruitItem key={fruit} name={fruit} onUpdate={onUpdate} onDelete={onDelete} />
+        <FruitItem key={fruit} name={fruit} />
       ))}
     </div>
   );
-}
+};
 
 export default FruitList;
+
