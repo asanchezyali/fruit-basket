@@ -56,15 +56,22 @@ This will run all the test files and display the results in the terminal.
 
 ## Project Structure
 `src`: Contains the source code of the application.
+
 `components/`: Contains the React components.
+
 `__tests__/`: Contains the test files for the components.
+
 `public`: Contains the public assets and the HTML template.
+
 `api.module.js`: Contains the mock API implementation.
 
 ## API
 The project uses a mock API defined in `api.module.js` with the following methods:
 
 `getAll()`: Fetches all the fruits.
+
 `add(fruit)`: Adds a new fruit.
+
 `update(oldName, newName)`: Updates an existing fruit.
+
 `delete(name)`: Deletes a fruit.
